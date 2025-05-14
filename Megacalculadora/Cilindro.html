@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular cilindro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <div class="col-12" style="font-size: 40px; font-weight:bold">Calcular cilindro</div>
+    <div class="row">
+        <div class="col-6" style="padding: 20px">
+            <label>Altura:&nbsp;</label><input type="text" id="h">
+        </div>
+        <div class="col-6" style="padding: 20px">
+            <label>Longitud del radio de las bases:&nbsp;</label><input type="text" id="rb">
+        </div>
+        </div>
+        <button type="button" style="font-size: 20px; background-color:rgb(128, 128, 255)" onclick="calcularCilindro()">Calcular</button>
+        <hr>
+        <div class="row">
+        <div class="col-6" style="padding: 20px">
+            <label>Área de las bases:&nbsp;</label><input type="text" id="ab">
+        </div>
+        <div class="col-6" style="padding: 20px">
+            <label>Área lateral:</label>&nbsp;</label><input type="text" id="al">
+        </div>
+        <div class="col-6" style="padding: 20px">
+            <label>Área total:&nbsp;</label><input type="text" id="at">
+        </div>
+        <div class="col-6" style="padding: 20px">
+            <label>Volumen:</label>&nbsp;</label><input type="text" id="v">
+        </div>
+        </div>
+        <button type="button" style="font-size: 20px; background-color:rgb(128, 128, 255)" onclick="guardarCilindro()">Guardar</button>
+        <hr>
+        <div class="col-12" style="font-size: 30px;">Historial</div>
+        <div class="row">
+            <div class="col-2" style="font-weight:bold">Altura</div>
+            <div class="col-2" style="font-weight:bold">Radio de las bases</div>
+            <div class="col-2" style="font-weight:bold">Área de las bases</div>
+            <div class="col-2" style="font-weight:bold">Área lateral</div>
+            <div class="col-2" style="font-weight:bold">Área total</div>
+            <div class="col-2" style="font-weight:bold">Volúmen</div>
+        </div>
+        <div id="cilindros" style="padding-top: 2%;"></div>
+        <hr>
+        <br>
+        <div class="col-12 text-end">
+            <a href="./Index.html">
+            <button type="button" style="font-size: 20px">Volver</button>
+        </a>
+        </div>
+        <script>
+            CILINDROS = []
+            historial()
+            function calcularCilindro(){
+                let Altura = document.getElementById("h").value
+                let Longderadbase = document.getElementById("rb").value
+                let Areabase = (Longderadbase ** 2) * 3.1416 * 2
+                let Arealat = ((Longderadbase * 2) * 3.1416) * Altura
+                let Volum = (Areabase/2)*Altura
+                document.getElementById("ab").value = Areabase
+                document.getElementById("al").value = Arealat
+                document.getElementById("at").value = (Areabase+Arealat)
+                document.getElementById("v").value = Volum
+            }
+            function guardarCilindro(){
+                let cilindro = {
+                    Altura: document.getElementById("h").value,
+                    Longituddelabase: document.getElementById("rb").value,
+                    Areadelabase: document.getElementById("ab").value,
+                    Arealateral: document.getElementById("al").value,
+                    Areatotal: document.getElementById("at").value,
+                    Volumen: document.getElementById("v").value,
+                }
+                CILINDROS.push(cilindro);
+        
+                document.getElementById("h").value = ""
+                document.getElementById("rb").value = ""
+                document.getElementById("ab").value = ""
+                document.getElementById("al").value = ""
+                document.getElementById("at").value = ""
+                document.getElementById("v").value = ""
+        
+                historial()
+            }
+            function historial(){
+                let html = ''
+                    CILINDROS.forEach(item => {
+        
+                       html += '<div class="row">'+
+                                '<div class="col-2">'+item.Altura+'</div>' +
+                                '<div class="col-2">'+item.Longituddelabase+'</div>' +
+                                '<div class="col-2">'+item.Areadelabase+'</div>' +
+                                '<div class="col-2">'+item.Arealateral+'</div>' +
+                                '<div class="col-2">'+item.Areatotal+'</div>' +
+                                '<div class="col-2">'+item.Volumen+'</div>'+
+                                '</div>'
+        
+                    });
+                    document.getElementById("cilindros").innerHTML = html
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+<style>
+body{
+    background-color: rgb(0, 0, 90);
+    color: white;
+    font-family: 'Cambria';
+    text-align: center;
+    margin-top: 20px;
+}
+hr{
+    background-color: blue;
+    height: 5px;
+    border: none;
+}
+</style>
+</html>
